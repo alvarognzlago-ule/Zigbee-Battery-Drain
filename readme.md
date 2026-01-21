@@ -56,7 +56,7 @@ Board sketch (m5zigbeebattery.ino)
 Expected results and observations
 ---------------------------------
 
-<img width="3853" height="2371" alt="chart" src="https://github.com/user-attachments/assets/334f6f20-514e-47a4-8a7b-4af5aaf49012" />
+<img width="3853" height="2371" alt="chart" src="https://github.com/user-attachments/assets/c233bd5f-97c8-44f8-b2aa-4bd126418daa" />
 
 - Experimental data shows a significant reduction in runtime under attack scenarios compared to control.
 - An important finding is that above a certain traffic threshold the radio's power consumption stays at its maximum level. Therefore, moderate attack frequencies (e.g., 1 packet/second) can approach the maximum damaging effect without additional network saturation.
@@ -64,3 +64,4 @@ Expected results and observations
 ---
 
 Created: 2026-01-20
+
