@@ -59,7 +59,7 @@ Expected results and observations
 <img width="3853" height="2371" alt="chart" src="https://github.com/user-attachments/assets/7914aa3e-e47e-4671-84ab-3cbe81c10ebc" />
 
 <p align="center">
-  <img width="658" height="532" alt="data" src="https://github.com/user-attachments/assets/94a8f894-2984-417d-9fda-d990b4e31526">
+  <img width="658" height="532" alt="data" src="https://github.com/user-attachments/assets/3fc60d61-727e-4d55-8beb-85799b41b98d" />
 </p>
 
 - Experimental data shows a significant reduction in runtime under attack scenarios compared to control.
