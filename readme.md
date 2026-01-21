@@ -59,7 +59,7 @@ Expected results and observations
 <img width="3853" height="2371" alt="chart" src="https://github.com/user-attachments/assets/7914aa3e-e47e-4671-84ab-3cbe81c10ebc" />
 
 
-<img width="658" height="532" alt="data" src="https://github.com/user-attachments/assets/94a8f894-2984-417d-9fda-d990b4a31526" />
+<img width="658" height="532" alt="data" align="center" src="https://github.com/user-attachments/assets/94a8f894-2984-417d-9fda-d990b4a31526" />
 
 - Experimental data shows a significant reduction in runtime under attack scenarios compared to control.
 - An important finding is that above a certain traffic threshold the radio's power consumption stays at its maximum level. Therefore, moderate attack frequencies (e.g., 1 packet/second) can approach the maximum damaging effect without additional network saturation.
@@ -67,6 +67,7 @@ Expected results and observations
 ---
 
 Created: 2026-01-20
+
 
 
 
