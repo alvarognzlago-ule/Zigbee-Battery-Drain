@@ -1,62 +1,62 @@
-**Drenaje de Batería en Dispositivos Zigbee — Replicación del Experimento**
+**Battery Drain in Zigbee Devices — Experiment Replication**
 
-Descripción
------------
-Este repositorio contiene los materiales y las instrucciones para reproducir un experimento de agotamiento de batería (battery exhaustion) en nodos Zigbee. El experimento demuestra cómo un atacante puede forzar a un módulo de radio y al microcontrolador a permanecer activos continuamente, reduciendo drásticamente la autonomía de una placa alimentada por batería.
-
-Estado: documento de réplica experimental y scripts de prueba.
-
-Objetivo
+Overview
 --------
-- Mostrar que es posible inducir un consumo elevado de energía en nodos Zigbee enviando tramas dirigidas con suficiente frecuencia.
-- Proveer instrucciones reproducibles para validar los resultados y comparar perfiles de tráfico (control, estrés, saturación).
+This repository contains the materials and instructions to reproduce a battery exhaustion experiment on Zigbee nodes. The experiment demonstrates how an attacker can force a radio module and microcontroller to remain continuously active, drastically reducing the runtime of a battery-powered board.
 
-Materiales y hardware
+Status: experimental replication document and test scripts.
+
+Goals
+-----
+- Demonstrate that targeted frame transmissions at sufficient frequency can induce high power consumption in Zigbee nodes.
+- Provide reproducible instructions to validate results and compare traffic profiles (control, stress, saturation).
+
+Materials and hardware
+----------------------
+- M5Stack boards (or similar with ADC capability).
+- XBee Series 2 modules (or equivalent Zigbee modules) for victim nodes and a coordinator.
+- USB cable for the coordinator (PC connection).
+- Test battery (use the same battery parameters across replicates).
+
+Key files
+---------
+- [script_msg.py](script_msg.py): Python script used to send API frames to the coordinator and generate traffic profiles.
+- m5zigbeebattery/m5zigbeebattery.ino: Arduino/ESP sketch to read battery voltage and log measurements.
+
+Setup and methodology
 ---------------------
-- Placas M5Stack.
-- Módulos XBee Series 2 (o equivalente Zigbee) para nodos víctima y un coordinador.
-- Cable USB para el coordinador (conexión al PC).
-- Batería de prueba (mismos parámetros para todas las réplicas).
+1. Configure the victim XBee modules with the appropriate parameters (e.g., AP=0 for transparent mode) and the coordinator in API mode (AP=1).
+2. Connect the coordinator to the PC and verify the available serial port (COMx on Windows).
+3. Set the COM port and target MAC addresses, then run the attack script from the PC to generate the traffic profiles:
 
-Archivos clave
--------------
-- [script_msg.py](script_msg.py): script en Python usado para enviar tramas API al coordinador y generar perfiles de tráfico.
-- m5zigbeebattery/m5zigbeebattery.ino: sketch Arduino/ESP para leer el voltaje de batería y registrar datos.
+   - Control: 1 packet every 10 minutes.
+   - Stress: 1 packet/second.
+   - Saturation: 5 packets/second.
 
-Configuración y metodología
----------------------------
-1. Configurar los XBee de las víctimas con los parámetros adecuados (p. ej. AP=0 para modo transparent) y el coordinador en modo API (AP=1).
-2. Conectar el coordinador al PC y verificar el puerto serie disponible (COMx en Windows).
-3. Configurar el puerto COM y las direcciones MAC para ejecutar el script de ataque desde el PC para generar los perfiles de tráfico:
+4. Upload the .ino sketch to the M5Stack boards.
+5. Monitor and record battery voltage on the victim boards every 5 minutes until failure.
 
-	- Control: 1 paquete cada 10 minutos.
-	- Estrés: 1 paquete/segundo.
-	- Saturación: 5 paquetes/segundo.
-
-4. Subir el código .ino a nuestros M5Stack Core2.
-5. Monitorear y registrar el voltaje de la batería en las placas víctimas cada 5 minutos hasta fallo.
-
-Ejecutar el script (ejemplo en Windows PowerShell)
------------------------------------------------
-Reemplace `COM3` por el puerto correspondiente y ajuste la velocidad si es necesario.
+Running the script (PowerShell example)
+--------------------------------------
+Replace `COM3` with the appropriate port and adjust baud rate if needed.
 
 ```powershell
 python script_msg.py --port COM3 --baud 115200 --target 0013A20040B2XXXX --rate 1
 ```
 
-Notas sobre `script_msg.py`
----------------------------
-- El script utiliza `pyserial` para abrir el puerto serie y enviar tramas API (Transmit Request 0x10) al coordinador.
-- Asegúrese de que el puerto no esté en uso por otro software (por ejemplo XCTU).
+Notes on `script_msg.py`
+------------------------
+- The script uses `pyserial` to open the serial port and send API frames (Transmit Request 0x10) to the coordinator.
+- Ensure the serial port is not occupied by other software (for example, XCTU).
 
-Sketch de la placa (m5zigbeebattery.ino)
----------------------------------------
-- El sketch lee el voltaje de batería mediante el ADC y puede registrar o transmitir valores por serie para su posterior análisis.
+Board sketch (m5zigbeebattery.ino)
+---------------------------------
+- The sketch reads battery voltage via the ADC and can log or transmit values over serial for later analysis.
 
-Resultados esperados y observaciones
------------------------------------
-- Los datos experimentales muestran una reducción significativa de la autonomía en escenarios de ataque frente al control.
-- Un hallazgo importante es que, por encima de cierto umbral de tráfico, el consumo de la radio se mantiene en su nivel máximo posible. Por tanto, frecuencias de ataque moderadas (p. ej. 1 paquete/segundo) pueden acercarse al máximo efecto dañino sin necesidad de saturar más la red.
+Expected results and observations
+---------------------------------
+- Experimental data shows a significant reduction in runtime under attack scenarios compared to control.
+- An important finding is that above a certain traffic threshold the radio's power consumption stays at its maximum level. Therefore, moderate attack frequencies (e.g., 1 packet/second) can approach the maximum damaging effect without additional network saturation.
 
 ---
-Fecha de creación: 2026-01-20
+Created: 2026-01-20
